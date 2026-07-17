@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <h2 class="mb-4">
+        ICU Mortality Prediction
+    </h2>
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+
+            <h5 class="mb-0">
+                Select Patient for Prediction
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Admission</th>
+                        <th>Assessment</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for patient in patients %}
+
+                    <tr>
+
+                        <td>{{ patient.patient_id }}</td>
+
+                        <td>{{ patient.patient_name }}</td>
+
+                        <td>{{ patient.age }}</td>
+
+                        <td>{{ patient.gender }}</td>
+
+                        <td>{{ patient.admission_date }}</td>
+
+                        <td>
+
+                            {% if patient.assessments > 0 %}
+
+                                <span class="badge bg-success">
+                                    Available
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if patient.assessments > 0 %}
+
+                                <a href="/predict/{{ patient.patient_id }}"
+                                   class="btn btn-danger btn-sm">
+
+                                    <i class="bi bi-cpu-fill"></i>
+
+                                    Predict
+
+                                </a>
+
+                            {% else %}
+
+                                <button class="btn btn-secondary btn-sm" disabled>
+
+                                    Assessment Required
+
+                                </button>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

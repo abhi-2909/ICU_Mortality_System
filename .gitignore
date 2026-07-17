@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.env
+
+
+
+# Dataset
+dataset/
+*.csv
+
+# Reports
+reports/
+*.pdf
+
+# CatBoost
+catboost_info/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log

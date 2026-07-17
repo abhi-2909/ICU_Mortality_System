@@ -1,0 +1,832 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <h2 class="text-center mb-4 text-primary">
+        Patient Profile
+    </h2>
+
+    <!-- ========================= -->
+    <!-- Patient Information -->
+    <!-- ========================= -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <h4>
+    <i class="bi bi-person-circle"></i>
+    Patient Information
+</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <b>Patient ID</b><br>
+                    {{ patient.patient_id }}
+                </div>
+
+                <div class="col-md-4">
+                    <b>Name</b><br>
+                    {{ patient.patient_name }}
+                </div>
+
+                <div class="col-md-4">
+                    <b>Age</b><br>
+                    {{ patient.age }}
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <b>Gender</b><br>
+                    {{ patient.gender }}
+                </div>
+
+                <div class="col-md-4">
+                    <b>Phone</b><br>
+                    {{ patient.phone }}
+                </div>
+
+                <div class="col-md-4">
+                    <b>Admission Date</b><br>
+                    {{ patient.admission_date }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- ICU Assessment -->
+    <!-- ========================= -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-success text-white">
+            <h4>
+    <i class="bi bi-heart-pulse-fill"></i>
+    Latest ICU Assessment
+</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if assessment %}
+
+            <div class="row">
+
+                <div class="col-md-3"><b>Heart Rate</b><br>{{ assessment.heart_rate }}</div>
+                <div class="col-md-3"><b>Systolic BP</b><br>{{ assessment.systolic_bp }}</div>
+                <div class="col-md-3"><b>Diastolic BP</b><br>{{ assessment.diastolic_bp }}</div>
+                <div class="col-md-3"><b>Respiratory Rate</b><br>{{ assessment.respiratory_rate }}</div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-3"><b>Temperature</b><br>{{ assessment.temperature }}</div>
+                <div class="col-md-3"><b>SpO₂</b><br>{{ assessment.spo2 }}</div>
+                <div class="col-md-3"><b>GCS</b><br>{{ assessment.gcs }}</div>
+                <div class="col-md-3"><b>Glucose</b><br>{{ assessment.glucose }}</div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-3"><b>Hemoglobin</b><br>{{ assessment.hemoglobin }}</div>
+                <div class="col-md-3"><b>WBC</b><br>{{ assessment.wbc }}</div>
+                <div class="col-md-3"><b>Platelets</b><br>{{ assessment.platelets }}</div>
+                <div class="col-md-3"><b>Creatinine</b><br>{{ assessment.creatinine }}</div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-3"><b>BUN</b><br>{{ assessment.bun }}</div>
+                <div class="col-md-3"><b>Sodium</b><br>{{ assessment.sodium }}</div>
+                <div class="col-md-3"><b>Potassium</b><br>{{ assessment.potassium }}</div>
+                <div class="col-md-3"><b>Lactate</b><br>{{ assessment.lactate }}</div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-3"><b>Bilirubin</b><br>{{ assessment.bilirubin }}</div>
+                <div class="col-md-3"><b>Urine Output</b><br>{{ assessment.urine_output }}</div>
+                <div class="col-md-3"><b>Ventilator</b><br>{{ assessment.ventilator }}</div>
+                <div class="col-md-3"><b>Diabetes</b><br>{{ assessment.diabetes }}</div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4"><b>Hypertension</b><br>{{ assessment.hypertension }}</div>
+                <div class="col-md-4"><b>CKD</b><br>{{ assessment.ckd }}</div>
+                <div class="col-md-4"><b>Heart Disease</b><br>{{ assessment.heart_disease }}</div>
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-warning">
+                No ICU Assessment Available.
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- AI Prediction -->
+    <!-- ========================= -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-danger text-white">
+            <h4>
+    <i class="bi bi-cpu-fill"></i>
+    AI Prediction Result
+</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if prediction %}
+            <!-- ========================= -->
+<!-- Prediction Summary Cards -->
+<!-- ========================= -->
+
+<div class="row mb-4">
+
+    <!-- Mortality Probability -->
+
+    <div class="col-md-3">
+
+        <div class="card border-primary shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Mortality Probability
+                </h6>
+
+                <h2 class="text-primary">
+
+                    {{ prediction.mortality_probability }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Confidence -->
+
+    <div class="col-md-3">
+
+        <div class="card border-success shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+
+                    Confidence
+
+                </h6>
+
+                <h2 class="text-success">
+
+                    {{ prediction.confidence_score }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Risk Level -->
+
+    <div class="col-md-3">
+
+        <div class="card border-danger shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+
+                    Risk Level
+
+                </h6>
+
+                {% if prediction.risk_level=="LOW" %}
+
+                    <h3 class="text-success">
+
+                        🟢 LOW
+
+                    </h3>
+
+                {% elif prediction.risk_level=="MEDIUM" %}
+
+                    <h3 class="text-warning">
+
+                        🟡 MEDIUM
+
+                    </h3>
+
+                {% else %}
+
+                    <h3 class="text-danger">
+
+                        🔴 HIGH
+
+                    </h3>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Prediction Time -->
+
+    <div class="col-md-3">
+
+        <div class="card border-dark shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+
+                    Prediction Time
+
+                </h6>
+
+                <h6>
+
+                    {{ prediction.prediction_time }}
+
+                </h6>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <b>Prediction Class</b><br>
+                    {{ prediction.prediction_class }}
+                </div>
+
+                <div class="col-md-3">
+                    <b>Mortality Probability</b><br>
+                    {{ prediction.mortality_probability }} %
+                </div>
+
+                <div class="col-md-3">
+                    <b>Confidence</b><br>
+                    {{ prediction.confidence_score }} %
+                </div>
+
+                <div class="col-md-3">
+
+                    <b>Risk Level</b><br>
+
+                    {% if prediction.risk_level=="LOW" %}
+
+                    <span class="badge bg-success fs-6">
+                        LOW
+                    </span>
+
+                    {% elif prediction.risk_level=="MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark fs-6">
+                        MEDIUM
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-danger fs-6">
+                        HIGH
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <hr>
+            <!-- ========================= -->
+<!-- AI Feature Explanation -->
+<!-- ========================= -->
+
+<div class="card shadow mb-4">
+    <div class="card-header bg-dark text-white">
+        SHAP Feature Importance
+    </div>
+
+    <div class="card-header bg-dark text-white">
+
+        <h4>Top AI Factors (SHAP)</h4>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if shap_data %}
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Feature</th>
+
+                        <th>Impact</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for item in shap_data %}
+
+                    <tr>
+
+                        <td>{{ item.feature }}</td>
+
+                        <td>
+
+                            {% if item.impact > 0 %}
+
+                                <span class="text-danger fw-bold">
+
+                                    +{{ item.impact }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="text-success fw-bold">
+
+                                    {{ item.impact }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <div class="alert alert-warning">
+
+                No SHAP explanation available.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+<hr>
+
+<h5 class="mb-3">
+    SHAP Feature Importance
+</h5>
+<pre>{{ shap_data }}</pre>
+<div style="height:400px;">
+    <canvas id="shapChart"></canvas>
+</div>
+</div>
+<!-- ========================= -->
+<!-- Mortality Risk Meter -->
+<!-- ========================= -->
+
+<hr>
+
+<h5 class="mb-3">Mortality Risk Meter</h5>
+
+<div class="progress" style="height:35px;">
+
+    {% if prediction.mortality_probability < 30 %}
+
+        <div
+            class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            style="width: {{ prediction.mortality_probability }}%;">
+
+            {{ prediction.mortality_probability }} %
+
+        </div>
+
+    {% elif prediction.mortality_probability < 70 %}
+
+        <div
+            class="progress-bar bg-warning text-dark progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            style="width: {{ prediction.mortality_probability }}%;">
+
+            {{ prediction.mortality_probability }} %
+
+        </div>
+
+    {% else %}
+
+        <div
+            class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            style="width: {{ prediction.mortality_probability }}%;">
+
+            {{ prediction.mortality_probability }} %
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<br>
+
+<div class="d-flex justify-content-between">
+
+    <small class="text-success">
+        Low Risk
+    </small>
+
+    <small class="text-warning">
+        Moderate Risk
+    </small>
+
+    <small class="text-danger">
+        High Risk
+    </small>
+
+</div>
+            <!-- ========================= -->
+<!-- AI Recommendation -->
+<!-- ========================= -->
+
+<hr>
+
+<h4 class="mb-3">
+    <i class="bi bi-robot"></i>
+    AI Recommendation
+</h4>
+
+{% if prediction.risk_level == "HIGH" %}
+
+<div class="alert alert-danger shadow">
+
+    <h5>🚨 Critical Patient</h5>
+
+    <p>{{ prediction.recommendation }}</p>
+
+    <hr>
+
+    <ul>
+
+        <li>Immediate ICU intervention recommended.</li>
+
+        <li>Notify Senior Intensivist immediately.</li>
+
+        <li>Monitor oxygen saturation continuously.</li>
+
+        <li>Repeat blood investigations.</li>
+
+        <li>Prepare emergency support if required.</li>
+
+    </ul>
+
+</div>
+
+{% elif prediction.risk_level == "MEDIUM" %}
+
+<div class="alert alert-warning shadow">
+
+    <h5>⚠ Moderate Risk Patient</h5>
+
+    <p>{{ prediction.recommendation }}</p>
+
+    <hr>
+
+    <ul>
+
+        <li>Increase monitoring frequency.</li>
+
+        <li>Repeat laboratory investigations.</li>
+
+        <li>Review patient every 4–6 hours.</li>
+
+        <li>Observe vital signs carefully.</li>
+
+    </ul>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-success shadow">
+
+    <h5>✅ Stable Patient</h5>
+
+    <p>{{ prediction.recommendation }}</p>
+
+    <hr>
+
+    <ul>
+
+        <li>Continue routine ICU monitoring.</li>
+
+        <li>Maintain current treatment plan.</li>
+
+        <li>Follow scheduled laboratory tests.</li>
+
+    </ul>
+
+</div>
+
+{% endif %}
+
+            <!-- ========================= -->
+<!-- Prediction Information -->
+<!-- ========================= -->
+
+<hr>
+
+<h4 class="mb-3">
+    <i class="bi bi-file-earmark-medical-fill"></i>
+    Prediction Information
+</h4>
+
+<div class="row">
+
+    <!-- Prediction Time -->
+
+    <div class="col-md-3">
+
+        <div class="card border-primary shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Prediction Time
+                </h6>
+
+                <h5>
+
+                    {{ prediction.prediction_time }}
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- AI Model -->
+
+    <div class="col-md-3">
+
+        <div class="card border-success shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    AI Model
+                </h6>
+
+                <h5 class="text-success">
+
+                    {{ prediction.model_name }}
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Prediction Class -->
+
+    <div class="col-md-3">
+
+        <div class="card border-warning shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Prediction Class
+                </h6>
+
+                <h5 class="text-warning">
+
+                    {{ prediction.prediction_class }}
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Status -->
+
+    <div class="col-md-3">
+
+        <div class="card border-info shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    Status
+                </h6>
+
+                <h5 class="text-info">
+
+                    ✔ Completed
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            {% else %}
+
+            <div class="alert alert-warning">
+
+                No Prediction Available.
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Buttons -->
+    <!-- ========================= -->
+
+    <div class="text-center mt-4 mb-5">
+
+<a href="/icu-assessment?patient_id={{patient.patient_id}}"
+class="btn btn-success">
+
+<i class="bi bi-clipboard2-pulse-fill"></i>
+
+New Assessment
+
+</a>
+
+<a href="/predict/{{patient.patient_id}}"
+class="btn btn-danger">
+
+<i class="bi bi-cpu-fill"></i>
+
+Predict Again
+
+</a>
+
+<a href="/prediction-history/{{patient.patient_id}}"
+class="btn btn-warning">
+
+<i class="bi bi-clock-history"></i>
+
+Prediction History
+
+</a>
+
+<a href="/reports/{{patient.patient_id}}"
+class="btn btn-primary">
+
+<i class="bi bi-file-earmark-pdf-fill"></i>
+
+Download Report
+
+</a>
+
+</div>
+
+</div>
+{% block scripts %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const canvas = document.getElementById("shapChart");
+
+    if (!canvas) {
+        console.log("Canvas not found");
+        return;
+    }
+
+    if (typeof Chart === "undefined") {
+        console.log("Chart.js not loaded");
+        return;
+    }
+
+    const labels = [
+    {% for item in shap_data %}
+        "{{ item.feature }}",
+    {% endfor %}
+    ];
+
+    const values = [
+    {% for item in shap_data %}
+        {{ item.impact }},
+    {% endfor %}
+    ];
+
+    new Chart(canvas,{
+        type:"bar",
+        data:{
+            labels:labels,
+            datasets:[{
+                label:"SHAP Importance",
+                data:values,
+                backgroundColor:[
+                    "#dc3545",
+                    "#fd7e14",
+                    "#ffc107",
+                    "#20c997",
+                    "#0d6efd"
+                ]
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{
+                legend:{
+                    display:false
+                }
+            },
+            scales:{
+                y:{
+                    beginAtZero:true
+                }
+            }
+        }
+    });
+
+});
+
+</script>
+
+{% endblock %}
+{% endblock %}

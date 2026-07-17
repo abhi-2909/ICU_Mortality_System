@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <h2 class="mb-4">
+        Prediction History
+    </h2>
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+                ICU Mortality Prediction History
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if predictions %}
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Patient ID</th>
+                        <th>Patient Name</th>
+                        <th>Prediction Time</th>
+                        <th>Risk Level</th>
+                        <th>Mortality Probability</th>
+                        <th>Confidence</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for prediction in predictions %}
+
+                    <tr>
+
+                        <td>{{ prediction.patient_id }}</td>
+
+                        <td>{{ prediction.patient_name }}</td>
+
+                        <td>{{ prediction.prediction_time }}</td>
+
+                        <td>
+
+                            {% if prediction.risk_level == "LOW" %}
+
+                                <span class="badge bg-success">
+                                    LOW
+                                </span>
+
+                            {% elif prediction.risk_level == "MEDIUM" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    MEDIUM
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    HIGH
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ prediction.mortality_probability }} %
+                        </td>
+
+                        <td>
+                            {{ prediction.confidence_score }} %
+                        </td>
+
+                        <td>
+
+                            <a href="/patient/{{ prediction.patient_id }}"
+                               class="btn btn-primary btn-sm">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+                <div class="alert alert-warning">
+
+                    No prediction history available.
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

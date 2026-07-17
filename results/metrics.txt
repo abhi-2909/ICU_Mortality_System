@@ -1,0 +1,45 @@
+
+Random Forest
+----------------------------------------
+Accuracy : 0.8405
+Precision: 0.7706
+Recall   : 0.7282
+F1 Score : 0.7488
+ROC AUC  : 0.9098
+
+
+Extra Trees
+----------------------------------------
+Accuracy : 0.7951
+Precision: 0.8101
+Recall   : 0.4866
+F1 Score : 0.6080
+ROC AUC  : 0.8716
+
+
+XGBoost
+----------------------------------------
+Accuracy : 0.8411
+Precision: 0.7611
+Recall   : 0.7484
+F1 Score : 0.7547
+ROC AUC  : 0.9119
+
+
+LightGBM
+----------------------------------------
+Accuracy : 0.8421
+Precision: 0.7615
+Recall   : 0.7520
+F1 Score : 0.7567
+ROC AUC  : 0.9125
+
+
+CatBoost
+----------------------------------------
+Accuracy : 0.8424
+Precision: 0.7750
+Recall   : 0.7288
+F1 Score : 0.7512
+ROC AUC  : 0.9132
+

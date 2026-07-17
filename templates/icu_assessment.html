@@ -1,0 +1,288 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4 text-primary">
+        ICU Clinical Assessment
+    </h2>
+
+    <form method="POST">
+
+        <!-- ============================= -->
+        <!-- Patient Information -->
+        <!-- ============================= -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Patient Information</h5>
+            </div>
+
+            <div class="card-body">
+
+                <label class="form-label">Select Patient</label>
+
+                <select
+                    name="patient_id"
+                    class="form-select"
+                    required>
+
+                    <option value="">Select Patient</option>
+
+                    {% for patient in patients %}
+
+                    <option value="{{ patient.patient_id }}">
+
+                        {{ patient.patient_id }} - {{ patient.patient_name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Vital Signs -->
+        <!-- ============================= -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Vital Signs</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label>Heart Rate</label>
+                        <input type="number" step="0.01" name="heart_rate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Systolic BP</label>
+                        <input type="number" step="0.01" name="systolic_bp" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Diastolic BP</label>
+                        <input type="number" step="0.01" name="diastolic_bp" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Respiratory Rate</label>
+                        <input type="number" step="0.01" name="respiratory_rate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Temperature (°C)</label>
+                        <input type="number" step="0.01" name="temperature" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>SpO₂ (%)</label>
+                        <input type="number" step="0.01" name="spo2" class="form-control" required>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Neurological -->
+        <!-- ============================= -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">Neurological Assessment</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <label>Glasgow Coma Scale (GCS)</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            name="gcs"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Laboratory Values -->
+        <!-- ============================= -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Laboratory Values</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label>Glucose</label>
+                        <input type="number" step="0.01" name="glucose" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Hemoglobin</label>
+                        <input type="number" step="0.01" name="hemoglobin" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>WBC</label>
+                        <input type="number" step="0.01" name="wbc" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Platelets</label>
+                        <input type="number" step="0.01" name="platelets" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Creatinine</label>
+                        <input type="number" step="0.01" name="creatinine" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>BUN</label>
+                        <input type="number" step="0.01" name="bun" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Sodium</label>
+                        <input type="number" step="0.01" name="sodium" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Potassium</label>
+                        <input type="number" step="0.01" name="potassium" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Lactate</label>
+                        <input type="number" step="0.01" name="lactate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Bilirubin</label>
+                        <input type="number" step="0.01" name="bilirubin" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Urine Output (mL)</label>
+                        <input type="number" step="0.01" name="urine_output" class="form-control" required>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Medical History -->
+        <!-- ============================= -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Medical History</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <label>Ventilator</label>
+                        <select name="ventilator" class="form-select">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Diabetes</label>
+                        <select name="diabetes" class="form-select">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Hypertension</label>
+                        <select name="hypertension" class="form-select">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>CKD</label>
+                        <select name="ckd" class="form-select">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Heart Disease</label>
+                        <select name="heart_disease" class="form-select">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- Submit -->
+        <!-- ============================= -->
+
+        <div class="text-center mb-5">
+
+            <button
+                type="submit"
+                class="btn btn-success btn-lg px-5">
+
+                Save ICU Assessment
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

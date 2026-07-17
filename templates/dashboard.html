@@ -1,0 +1,489 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2 class="text-center mb-4">
+
+ICU Mortality Prediction Dashboard
+
+</h2>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card bg-primary text-white shadow">
+
+<div class="card-body text-center">
+
+<h5>Total Patients</h5>
+
+<h1>{{ total_patients }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-success text-white shadow">
+
+<div class="card-body text-center">
+
+<h5>Total Predictions</h5>
+
+<h1>{{ total_predictions }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-2">
+
+<div class="card bg-success text-white shadow">
+
+<div class="card-body text-center">
+
+<h5>Low Risk</h5>
+
+<h1>{{ low_risk }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-2">
+
+<div class="card bg-warning shadow">
+
+<div class="card-body text-center">
+
+<h5>Medium</h5>
+
+<h1>{{ medium_risk }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-2">
+
+<div class="card bg-danger text-white shadow">
+
+<div class="card-body text-center">
+
+<h5>High</h5>
+
+<h1>{{ high_risk }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br><hr class="my-5">
+
+<div class="row">
+
+    <!-- Pie Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-lg">
+
+            <div class="card-header bg-primary text-white">
+
+                Risk Distribution
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="riskChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bar Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-lg">
+
+            <div class="card-header bg-success text-white">
+
+                Monthly Predictions
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="monthChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<br>
+<hr class="my-5">
+
+<div class="card shadow-lg">
+
+    <div class="card-header bg-dark text-white">
+
+        <h4>
+
+            <i class="bi bi-clock-history"></i>
+
+            Recent AI Predictions
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-primary">
+
+                    <tr>
+
+                        <th>Patient</th>
+                        <th>Risk</th>
+                        <th>Probability</th>
+                        <th>Confidence</th>
+                        <th>Prediction Time</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for row in recent_predictions %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ row.patient_name }}
+
+                        </td>
+
+                        <td>
+
+                            {% if row.risk_level=="LOW" %}
+
+                                <span class="badge bg-success">
+
+                                    LOW
+
+                                </span>
+
+                            {% elif row.risk_level=="MEDIUM" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    MEDIUM
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    HIGH
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ row.mortality_probability }} %
+
+                        </td>
+
+                        <td>
+
+                            {{ row.confidence_score }} %
+
+                        </td>
+
+                        <td>
+
+                            {{ row.prediction_time }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    {% if recent_predictions|length == 0 %}
+
+                    <tr>
+
+                        <td colspan="5" class="text-center">
+
+                            No Predictions Available
+
+                        </td>
+
+                    </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<br>
+<hr class="my-5">
+
+<h3 class="mb-4">
+    <i class="bi bi-graph-up-arrow"></i>
+    Dashboard Insights
+</h3>
+
+<div class="row">
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card border-primary shadow">
+
+            <div class="card-body text-center">
+
+                <h6>Average Mortality</h6>
+
+                <h2 class="text-primary">
+
+                    {{ avg_probability }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card border-success shadow">
+
+            <div class="card-body text-center">
+
+                <h6>Average Confidence</h6>
+
+                <h2 class="text-success">
+
+                    {{ avg_confidence }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2 mb-3">
+
+        <div class="card border-info shadow">
+
+            <div class="card-body text-center">
+
+                <h6>Today's Patients</h6>
+
+                <h2 class="text-info">
+
+                    {{ today_patients }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2 mb-3">
+
+        <div class="card border-warning shadow">
+
+            <div class="card-body text-center">
+
+                <h6>Today's Predictions</h6>
+
+                <h2 class="text-warning">
+
+                    {{ today_predictions }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2 mb-3">
+
+        <div class="card border-danger shadow">
+
+            <div class="card-body text-center">
+
+                <h6>Critical Patients</h6>
+
+                <h2 class="text-danger">
+
+                    {{ critical_patients }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<br>
+<div class="card">
+
+<div class="card-header">
+
+Welcome
+
+</div>
+
+<div class="card-body">
+
+<h3>Hello {{ username }}</h3>
+
+<p>
+
+Welcome to the ICU Mortality Prediction System.
+
+</p>
+
+</div>
+
+</div>
+<script>
+
+const riskChart = new Chart(
+
+document.getElementById("riskChart"),
+
+{
+
+type:'pie',
+
+data:{
+
+labels:['Low','Medium','High'],
+
+datasets:[{
+
+data:[
+{{ low_risk }},
+{{ medium_risk }},
+{{ high_risk }}
+],
+
+backgroundColor:[
+'#198754',
+'#ffc107',
+'#dc3545'
+]
+
+}]
+
+}
+
+}
+
+);
+
+const months = [
+
+{% for m in monthly_predictions %}
+
+'{{m.month}}',
+
+{% endfor %}
+
+];
+
+const totals = [
+
+{% for m in monthly_predictions %}
+
+{{m.total}},
+
+{% endfor %}
+
+];
+
+const monthChart = new Chart(
+
+document.getElementById("monthChart"),
+
+{
+
+type:'bar',
+
+data:{
+
+labels:months,
+
+datasets:[{
+
+label:'Predictions',
+
+data:totals,
+
+backgroundColor:'#0d6efd'
+
+}]
+
+}
+
+}
+
+);
+
+</script>
+
+{% endblock %}

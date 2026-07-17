@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h2>Registered Patients</h2>
+
+<hr>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Admission Date</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for patient in patients %}
+
+        <tr>
+
+            <td>{{ patient.patient_id }}</td>
+
+            <td>{{ patient.patient_name }}</td>
+
+            <td>{{ patient.age }}</td>
+
+            <td>{{ patient.gender }}</td>
+
+            <td>{{ patient.phone }}</td>
+
+            <td>{{ patient.admission_date }}</td>
+
+            <!-- ADD THIS COLUMN -->
+            <td>
+
+                <a href="/patient/{{ patient.patient_id }}"
+                   class="btn btn-primary btn-sm">
+                    Profile
+                </a>
+
+                <a href="/icu-assessment?patient_id={{ patient.patient_id }}"
+                   class="btn btn-success btn-sm">
+                    Assessment
+                </a>
+
+                <a href="/predict/{{ patient.patient_id }}"
+                   class="btn btn-danger btn-sm">
+                    Predict
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
