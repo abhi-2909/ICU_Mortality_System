@@ -1,0 +1,322 @@
+/* ==========================================
+   ICU Mortality Prediction System Login
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fc;
+}
+
+/* ==========================================
+LEFT PANEL
+========================================== */
+
+.left-panel{
+
+    background:#0F6CBD;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:60px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.content{
+
+    max-width:520px;
+    z-index:2;
+
+}
+
+.logo{
+
+    width:80px;
+    margin-bottom:25px;
+
+}
+
+.content h1{
+
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:15px;
+
+}
+
+.content h4{
+
+    font-size:24px;
+    font-weight:500;
+    margin-bottom:20px;
+
+}
+
+.content p{
+
+    font-size:17px;
+    line-height:30px;
+    margin-bottom:35px;
+
+}
+
+/* ==========================================
+FEATURES
+========================================== */
+
+.feature-list{
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+
+}
+
+.feature{
+
+    background:rgba(255,255,255,.15);
+
+    padding:15px 20px;
+
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    width:280px;
+
+}
+
+.feature i{
+
+    font-size:20px;
+
+}
+
+/* ==========================================
+DOCTOR IMAGE
+========================================== */
+
+.doctor-image{
+
+    width:320px;
+    max-height:80%;
+
+    object-fit:contain;
+
+}
+
+/* ==========================================
+RIGHT PANEL
+========================================== */
+
+.right-panel{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#f4f8fc;
+
+    padding:40px;
+
+}
+
+/* ==========================================
+LOGIN CARD
+========================================== */
+
+.login-card{
+
+    width:420px;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:40px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+}
+
+.login-card h2{
+
+    font-weight:700;
+
+    color:#0F6CBD;
+
+    margin-bottom:10px;
+
+}
+
+.login-card p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+/* ==========================================
+INPUTS
+========================================== */
+
+.form-label{
+
+    font-weight:600;
+
+}
+
+.input-group-text{
+
+    background:#fff;
+
+    border-right:none;
+
+}
+
+.form-control{
+
+    height:50px;
+
+    border-left:none;
+
+}
+
+.form-control:focus{
+
+    box-shadow:none;
+
+    border-color:#86b7fe;
+
+}
+
+.btn-outline-secondary{
+
+    border-left:none;
+
+}
+
+/* ==========================================
+LOGIN BUTTON
+========================================== */
+
+.login-btn{
+
+    background:#0F6CBD;
+
+    color:white;
+
+    height:50px;
+
+    border:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.login-btn:hover{
+
+    background:#0b5aa0;
+
+    color:white;
+
+}
+
+/* ==========================================
+LINKS
+========================================== */
+
+a{
+
+    text-decoration:none;
+
+    color:#0F6CBD;
+
+}
+
+a:hover{
+
+    color:#0b5aa0;
+
+}
+
+/* ==========================================
+FOOTER
+========================================== */
+
+.footer{
+
+    text-align:center;
+
+    color:#888;
+
+    font-size:14px;
+
+    margin-top:20px;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+.left-panel{
+
+    display:none;
+
+}
+
+.right-panel{
+
+    width:100%;
+
+}
+
+.login-card{
+
+    width:100%;
+
+    max-width:420px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.login-card{
+
+    padding:30px 20px;
+
+}
+
+.content h1{
+
+    font-size:32px;
+
+}
+
+}
